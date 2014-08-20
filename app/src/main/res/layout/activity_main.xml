@@ -15,17 +15,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <View
+    <TextView
         android:id="@+id/gridHeader"
+        android:text="Grid header!"
         android:layout_width="match_parent"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
         android:layout_height="100dp"
         android:background="#0000ff"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
         android:layout_gravity="top" />
 
-    <View
+    <TextView
         android:id="@+id/gridFooter"
+        android:text="Grid Footer!"
+        android:textSize="20sp"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginRight="5dp"
