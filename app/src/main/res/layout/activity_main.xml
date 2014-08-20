@@ -1,0 +1,36 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <GridView
+        android:id="@+id/gridView"
+        android:numColumns="auto_fit"
+        android:padding="5dp"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        android:horizontalSpacing="5dp"
+        android:verticalSpacing="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <View
+        android:id="@+id/gridHeader"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#0000ff"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_gravity="top" />
+
+    <View
+        android:id="@+id/gridFooter"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:background="#ff0000"
+        android:layout_gravity="bottom" />
+
+</FrameLayout>
