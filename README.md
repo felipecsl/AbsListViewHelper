@@ -4,6 +4,8 @@ Really simple attacher class to add a header and/or a footer to an Android AbsLi
 
 ### Demo
 
+![demo](https://raw.githubusercontent.com/felipecsl/AbsListViewHelper/master/demo.gif)
+
 ### Usage
 
 In your ``build.gradle`` file:
