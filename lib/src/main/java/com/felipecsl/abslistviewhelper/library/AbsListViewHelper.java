@@ -66,6 +66,11 @@ public class AbsListViewHelper {
         return this;
     }
 
+    public AbsListViewHelper registerOnScrollListener(AbsListView.OnScrollListener listener) {
+        scrollListener.registerOnScrollListener(listener);
+        return this;
+    }
+
     public AbsListView.OnScrollListener getOnScrollListener() {
         return scrollListener;
     }

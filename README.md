@@ -41,9 +41,13 @@ protected void onCreate(Bundle savedInstanceState) {
 
     gridView.setAdapter(myAdapter);
 
-    new AbsListViewHelper(gridView)
+    AbsListViewHelper helper = new AbsListViewHelper(gridView)
             .setHeaderView(gridHeader)
             .setFooterView(gridFooter);
+
+    // If you want to set an OnScrollListener on the GridView,
+    // you have to call it on the helper instance. See below:
+    helper.registerOnScrollListener(scrollListener);
 
     // that's it!
 }

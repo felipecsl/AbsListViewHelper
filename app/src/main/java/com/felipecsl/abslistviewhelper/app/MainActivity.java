@@ -16,17 +16,14 @@ import java.util.List;
 
 public class MainActivity extends ActionBarActivity {
 
-    private GridView gridView;
-    private View gridHeader;
-    private View gridFooter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        gridView = (GridView) findViewById(R.id.gridView);
-        gridHeader = findViewById(R.id.gridHeader);
-        gridFooter = findViewById(R.id.gridFooter);
+
+        final GridView gridView = (GridView) findViewById(R.id.gridView);
+        final View gridHeader = findViewById(R.id.gridHeader);
+        final View gridFooter = findViewById(R.id.gridFooter);
 
         List<String> items = new ArrayList<>();
         for (int i = 0; i < 100; i++)
@@ -38,11 +35,6 @@ public class MainActivity extends ActionBarActivity {
         new AbsListViewHelper(gridView)
                 .setHeaderView(gridHeader)
                 .setFooterView(gridFooter);
-    }
-
-    @Override protected void onResume() {
-        super.onResume();
-        gridView.scrollTo(0, 0);
     }
 
     @Override
