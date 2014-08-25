@@ -75,5 +75,7 @@ Please see the [Changelog](https://github.com/felipecsl/AbsListViewHelper/blob/m
 ### Copyright and license
 
 Code and documentation copyright 2011-2014 Felipe Lima.
-Credits go to @luciofm for the original idea on this solution :)
+
+Credits go to [@luciofm](http://github.com/luciofm) for the original idea on this solution :)
+
 Code released under the [MIT license](https://github.com/felipecsl/QuickReturn/blob/master/LICENSE.txt).
