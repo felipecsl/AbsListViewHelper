@@ -1,6 +1,7 @@
 package com.felipecsl.abslistviewhelper.library;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
@@ -11,17 +12,23 @@ import com.felipecsl.abslistviewhelper.library.widget.HeaderAbsListViewScrollLis
 public class AbsListViewHelper {
     private final CompositeAbsListViewOnScrollListener scrollListener = new CompositeAbsListViewOnScrollListener();
     private final AbsListView absListView;
+    private Bundle savedState;
     private HeaderAbsListViewScrollListener headerListener;
     private FooterAbsListViewScrollListener footerListener;
 
     public AbsListViewHelper(final AbsListView absListView) {
+        this(absListView, null);
+    }
+
+    public AbsListViewHelper(final AbsListView absListView, final Bundle savedState) {
         this.absListView = absListView;
+        this.savedState = savedState;
         absListView.setClipToPadding(false);
         absListView.setOnScrollListener(scrollListener);
     }
 
     public AbsListViewHelper setHeaderView(final View headerView) {
-        headerListener = new HeaderAbsListViewScrollListener(headerView);
+        headerListener = new HeaderAbsListViewScrollListener(headerView, savedState);
         scrollListener.registerOnScrollListener(headerListener);
 
         headerView.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -44,7 +51,7 @@ public class AbsListViewHelper {
     }
 
     public AbsListViewHelper setFooterView(final View footerView) {
-        footerListener = new FooterAbsListViewScrollListener(footerView);
+        footerListener = new FooterAbsListViewScrollListener(footerView, savedState);
         scrollListener.registerOnScrollListener(footerListener);
 
         footerView.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -79,5 +86,12 @@ public class AbsListViewHelper {
         // Took from http://stackoverflow.com/questions/8309354/formula-px-to-dp-dp-to-px-android
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) ((dp * scale) + 0.5f);
+    }
+
+    public void onSaveInstanceState(Bundle outState) {
+        if (headerListener != null)
+            headerListener.onSaveInstanceState(outState);
+        if (footerListener != null)
+            footerListener.onSaveInstanceState(outState);
     }
 }
