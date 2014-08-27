@@ -23,7 +23,7 @@
         android:textColor="#ffffff"
         android:textSize="20sp"
         android:layout_height="100dp"
-        android:background="#0000ff"
+        android:background="#0033ff"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
         android:layout_gravity="top" />
@@ -34,10 +34,11 @@
         android:textSize="20sp"
         android:gravity="center"
         android:layout_width="match_parent"
+        android:textColor="#ffffff"
         android:layout_height="100dp"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
-        android:background="#ff0000"
+        android:background="#ff3300"
         android:layout_gravity="bottom" />
 
 </FrameLayout>

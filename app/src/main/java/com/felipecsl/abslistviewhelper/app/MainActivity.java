@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 
@@ -30,15 +31,14 @@ public class MainActivity extends ActionBarActivity {
         for (int i = 0; i < 100; i++)
             items.add("Item " + i);
 
-        gridView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items));
-
         helper = new AbsListViewHelper(gridView, savedInstanceState)
                 .setHeaderView(gridHeader)
                 .setFooterView(gridFooter);
+
+        gridView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items));
     }
 
     @Override protected void onSaveInstanceState(Bundle outState) {
-        Log.d("MainActivity", "onSaveInstanceState");
         super.onSaveInstanceState(outState);
         helper.onSaveInstanceState(outState);
     }

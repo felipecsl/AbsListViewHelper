@@ -15,6 +15,8 @@ public class AbsListViewHelper {
     private Bundle savedState;
     private HeaderAbsListViewScrollListener headerListener;
     private FooterAbsListViewScrollListener footerListener;
+    private int paddingBottom;
+    private int paddingTop;
 
     public AbsListViewHelper(final AbsListView absListView) {
         this(absListView, null);
@@ -25,28 +27,34 @@ public class AbsListViewHelper {
         this.savedState = savedState;
         absListView.setClipToPadding(false);
         absListView.setOnScrollListener(scrollListener);
+
+        if (savedState != null) {
+            paddingTop = savedState.getInt("ABS_LIST_VIEW_HELPER_PADDING_TOP");
+            paddingBottom = savedState.getInt("ABS_LIST_VIEW_HELPER_PADDING_BOTTOM");
+
+            absListView.setPadding(
+                    absListView.getPaddingLeft(), paddingTop,
+                    absListView.getPaddingRight(), paddingBottom);
+        }
     }
 
     public AbsListViewHelper setHeaderView(final View headerView) {
         headerListener = new HeaderAbsListViewScrollListener(headerView, savedState);
         scrollListener.registerOnScrollListener(headerListener);
 
-        headerView.getViewTreeObserver().addOnGlobalLayoutListener(
-                new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override public void onGlobalLayout() {
-                        if (headerView.getHeight() == 0)
-                            return;
+        if (headerView.getMeasuredHeight() == 0) {
+            int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(absListView.getWidth(), View.MeasureSpec.AT_MOST);
+            int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(headerView.getLayoutParams().height, View.MeasureSpec.AT_MOST);
+            headerView.measure(widthMeasureSpec, heightMeasureSpec);
+        }
+        paddingTop = headerView.getMeasuredHeight() + dpToPx(absListView.getContext(), 10);
+        absListView.setPadding(
+                absListView.getPaddingLeft(),
+                paddingTop,
+                absListView.getPaddingRight(),
+                absListView.getPaddingBottom());
 
-                        headerView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                        int paddingTop = headerView.getHeight() + dpToPx(absListView.getContext(), 10);
-                        headerListener.setPaddingTop(dpToPx(absListView.getContext(), 10));
-                        absListView.setPadding(
-                                absListView.getPaddingLeft(),
-                                paddingTop,
-                                absListView.getPaddingRight(),
-                                absListView.getPaddingBottom());
-                    }
-                });
+        headerListener.setPaddingTop(dpToPx(absListView.getContext(), 10));
         return this;
     }
 
@@ -54,14 +62,14 @@ public class AbsListViewHelper {
         footerListener = new FooterAbsListViewScrollListener(footerView, savedState);
         scrollListener.registerOnScrollListener(footerListener);
 
-        footerView.getViewTreeObserver().addOnGlobalLayoutListener(
+        absListView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override public void onGlobalLayout() {
                         if (footerView.getHeight() == 0)
                             return;
 
-                        footerView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                        int paddingBottom = footerView.getHeight() + dpToPx(absListView.getContext(), 10);
+                        absListView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                        paddingBottom = footerView.getHeight() + dpToPx(absListView.getContext(), 10);
                         footerListener.setPaddingBottom(dpToPx(absListView.getContext(), 10));
                         absListView.setPadding(
                                 absListView.getPaddingLeft(),
@@ -89,6 +97,9 @@ public class AbsListViewHelper {
     }
 
     public void onSaveInstanceState(Bundle outState) {
+        outState.putInt("ABS_LIST_VIEW_HELPER_PADDING_TOP", paddingTop);
+        outState.putInt("ABS_LIST_VIEW_HELPER_PADDING_BOTTOM", paddingBottom);
+
         if (headerListener != null)
             headerListener.onSaveInstanceState(outState);
         if (footerListener != null)
