@@ -19,11 +19,13 @@
         android:id="@+id/gridHeader"
         android:text="Grid header!"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="#ffffff"
         android:textSize="20sp"
-        android:layout_height="100dp"
         android:background="#0033ff"
+        android:paddingTop="40dp"
+        android:paddingBottom="40dp"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
         android:layout_gravity="top" />
@@ -34,11 +36,13 @@
         android:textSize="20sp"
         android:gravity="center"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:textColor="#ffffff"
-        android:layout_height="100dp"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
         android:background="#ff3300"
+        android:paddingTop="40dp"
+        android:paddingBottom="40dp"
         android:layout_gravity="bottom" />
 
 </FrameLayout>

@@ -2,6 +2,8 @@ package com.felipecsl.abslistviewhelper.library;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
@@ -42,19 +44,29 @@ public class AbsListViewHelper {
         headerListener = new HeaderAbsListViewScrollListener(headerView, savedState);
         scrollListener.registerOnScrollListener(headerListener);
 
-        if (headerView.getMeasuredHeight() == 0) {
-            int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(absListView.getWidth(), View.MeasureSpec.AT_MOST);
-            int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(headerView.getLayoutParams().height, View.MeasureSpec.AT_MOST);
-            headerView.measure(widthMeasureSpec, heightMeasureSpec);
-        }
-        paddingTop = headerView.getMeasuredHeight() + dpToPx(absListView.getContext(), 10);
-        absListView.setPadding(
-                absListView.getPaddingLeft(),
-                paddingTop,
-                absListView.getPaddingRight(),
-                absListView.getPaddingBottom());
+        absListView.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override public void onGlobalLayout() {
+                        if (headerView.getHeight() == 0)
+                            return;
 
-        headerListener.setPaddingTop(dpToPx(absListView.getContext(), 10));
+                        absListView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                        paddingTop = headerView.getHeight() + dpToPx(absListView.getContext(), 10);
+                        absListView.setPadding(
+                                absListView.getPaddingLeft(),
+                                paddingTop,
+                                absListView.getPaddingRight(),
+                                absListView.getPaddingBottom());
+
+                        headerListener.setPaddingTop(dpToPx(absListView.getContext(), 10));
+
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override public void run() {
+                                absListView.smoothScrollBy(-paddingTop, 0);
+                            }
+                        });
+                    }
+                });
         return this;
     }
 
