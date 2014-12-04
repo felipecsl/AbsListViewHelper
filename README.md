@@ -11,11 +11,6 @@ Really simple attacher class to add a header and/or a footer to an Android AbsLi
 In your ``build.gradle`` file:
 
 ```groovy
-repositories {
-    maven { url 'https://github.com/felipecsl/m2repository/raw/master/' }
-    // ...
-}
-
 dependencies {
     // ...
     compile 'com.felipecsl:abslistviewhelper:1.0.+'
@@ -48,7 +43,7 @@ protected void onCreate(Bundle savedInstanceState) {
             .setFooterView(gridFooter);
 
     // If you want to set an OnScrollListener on the GridView,
-    // you have to call it on the helper instance. See below:
+    // you have to call it on the helper instance. See below
     helper.registerOnScrollListener(scrollListener);
 
     // that's it!
