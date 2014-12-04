@@ -12,8 +12,7 @@ In your ``build.gradle`` file:
 
 ```groovy
 dependencies {
-    // ...
-    compile 'com.felipecsl:abslistviewhelper:1.0.+'
+    compile 'com.felipecsl:abslistviewhelper:1.0.3'
 }
 ```
 
