@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AbsListView;
 
-import com.nineoldandroids.view.ViewHelper;
+import 	android.support.v4.view.ViewCompat;
 
 public class FooterAbsListViewScrollListener implements AbsListView.OnScrollListener {
     private final View footerView;
@@ -17,7 +17,7 @@ public class FooterAbsListViewScrollListener implements AbsListView.OnScrollList
         if (savedState != null) {
             paddingBottom = savedState.getInt("FOOTER_PADDING");
             translationY = savedState.getFloat("FOOTER_TRANSLATION_Y");
-            ViewHelper.setTranslationY(footerView, translationY);
+            ViewCompat.setTranslationY(footerView, translationY);
         }
     }
 
@@ -29,12 +29,12 @@ public class FooterAbsListViewScrollListener implements AbsListView.OnScrollList
         if (firstVisibleItem + visibleItemCount >= totalItemCount) {
             final View lastView = view.getChildAt(view.getChildCount() - 1);
             if (lastView != null) {
-                translationY = footerView.getHeight() - (view.getHeight() - (ViewHelper.getY(lastView) + lastView.getHeight())) + (paddingBottom / 2);
-                ViewHelper.setTranslationY(footerView, translationY);
+                translationY = footerView.getHeight() - (view.getHeight() - (ViewCompat.getY(lastView) + lastView.getHeight())) + (paddingBottom / 2);
+                ViewCompat.setTranslationY(footerView, translationY);
             }
         } else {
             translationY = footerView.getHeight();
-            ViewHelper.setTranslationY(footerView, translationY);
+            ViewCompat.setTranslationY(footerView, translationY);
         }
     }
 
